@@ -9,6 +9,8 @@ patterns based in regards to handling application Context.
 For routing, it uses [github.com/julienschmidt/httprouter](http://github.com/julienschmidt/httprouter), and exposes
 route variables through the standard `http.Request.FormValue`.
 
+Please note that this project is still extremely young and may change often. The API should remain stable, though.
+
 ## Usage
 
 ```go
