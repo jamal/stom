@@ -26,10 +26,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	stom.WriteString(w, "Welcome")
 }
 
+func Hello(w http.ResponseWriter, r *http.Request) {
+	storm.WriteString(w, "Hello, %s", r.FormValue("name"))
+}
+
 func main() {
 	s := stom.New()
 	s.UseAfter(middleware.Logger{})
 	s.Get("/", Index)
+	s.Get("/hello/:name", Hello)
 	log.Fatal(http.ListenAndServe(":8080", s))
 }
 ```
