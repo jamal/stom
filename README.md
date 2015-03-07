@@ -38,3 +38,4 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", s))
 }
 ```
+See [example/main.go](example/main.go) for a more detailed example.
