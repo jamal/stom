@@ -39,6 +39,10 @@ func HelloName(w http.ResponseWriter, r *http.Request) {
 	stom.WriteString(w, "Hello, %s", r.FormValue("name"))
 }
 
+func HelloJSON(w http.ResponseWriter, r *http.Request) {
+	stom.WriteJSON(w, map[string]string{"message": "Hello!"})
+}
+
 func main() {
 	s := stom.New()
 	s.UseAfter(middleware.Logger{})
@@ -46,6 +50,7 @@ func main() {
 	s.Get("/", Index)
 	s.Get("/hello", Hello)
 	s.Get("/hello/:name", HelloName)
+	s.Get("/hello.json", HelloJSON)
 
 	log.Fatal(http.ListenAndServe(":8080", s))
 }
