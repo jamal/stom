@@ -41,3 +41,26 @@ func main() {
 }
 ```
 See [example/main.go](example/main.go) for a more detailed example.
+
+## Request Context
+
+Request context is not handled by this library, because it isn't needed. Instead, it offers the [`Context`](http://godoc.org/github.com/jamal/stom#Context) interface as an suggestion on how to approach this problem. With this pattern, you only need to fetch the request context on handlers that need it, and `NewContext` should handle any parsing of request parameters that are needed (such as reading a session cookie and fetching the User object). For example:
+
+```go
+type Context {
+	User *User
+}
+
+func NewContext(r *http.Request) *Context {
+	ctx := new(Context)
+	sessionID, _ := r.Cookie("session_id")
+	user, _ := FetchSessionUser(sessionID)
+	ctx.User = user
+	return ctx
+}
+
+func ContextHandler(w http.ResponseWriter, r *http.Request) {
+	ctx := NewContext(r)
+	
+}
+```
